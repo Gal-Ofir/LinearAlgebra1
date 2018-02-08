@@ -4,19 +4,16 @@ import LinearAlgebra.Exceptions.*;
 import java.util.Arrays;
 
 public class LinearVector {
-    private double[] vector;
+    protected double[] vector;
 
     public LinearVector(double[] values) {
         vector = new double[values.length];
-
-        for(int i = 0; i < vector.length; i ++) {
-            this.vector[i] = values[i];
+        System.arraycopy(values, 0, vector, 0, vector.length);
         }
-    }
 
     public int length() { return vector.length; }
 
-    public double[] getVector() { return vector; }
+    public double[] getVector() { return vector.clone(); }
 
     public boolean isZeroVector() {
         for(double val: vector) {
@@ -58,10 +55,14 @@ public class LinearVector {
         return new LinearVector(thisVector);
     }
 
+    public LinearColumn toColumn() { return new LinearColumn(this.vector); }
+
+    public LinearRow toRow() { return new LinearRow(this.vector);}
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for(double v: vector) { builder.append(v).append("\n"); }
+        for(double v: vector) { builder.append("|").append(v).append("|").append("\n"); }
         return builder.toString().substring(0, builder.length() - 1);
     }
 
