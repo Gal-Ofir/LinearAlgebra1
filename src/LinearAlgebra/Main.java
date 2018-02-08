@@ -4,24 +4,19 @@ import LinearAlgebra.Exceptions.IllegalOperation;
 public class Main {
 
     public static void main(String [] args) {
-        double[] vec = {1,1,1};
-        double[] vec1 = {2,4,5};
-        double[] vec2 = {2,7,9};
+        double[] vec = {3,5,0,4};
+        double[] vec1 = {0,1,0,4};
+        double[] vec2 = {0,0,3,4};
+        double[] vec3 = {1,2,3,4};
         try {
-            LinearColumn[] vectors = {new LinearColumn(vec), new LinearColumn(vec1), new LinearColumn(vec2)};
+            LinearColumn[] vectors = {new LinearColumn(vec), new LinearColumn(vec1), new LinearColumn(vec2), new LinearColumn(vec3)};
             LinearRow row1 = new LinearRow(vec);
             LinearRow row2 = new LinearRow(vec1);
             LinearRow row3 = new LinearRow(vec2);
-            System.out.println(row1);
-            row1.RowScaling(2);
-            System.out.println(row1);
-            row1.RowScaling(0.5);
-            row1.RowReplacement(row2, LinearRow.MINUS);
-            System.out.println(row1);
-            //Matrix m = new Matrix(vectors);
-            //System.out.println(m + "\n\n");
-
-
+            LinearRow row4 = new LinearRow(vec3);
+            Matrix m = new Matrix(row1, row2, row3, row4);
+            System.out.println(m + "\nThe determinant is:");
+            System.out.println(m.getDet());
         }
         catch (Exception i) { System.out.println(i.getMessage());
         }
