@@ -20,10 +20,6 @@ public class Matrix {
             }
             i++;
         }
-        for (double[] s:
-             toBeRows) {
-         System.out.println(Arrays.toString(s));
-        }
         }
     }
 
