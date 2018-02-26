@@ -4,19 +4,16 @@ import LinearAlgebra.Exceptions.*;
 import java.util.Arrays;
 
 public class LinearVector {
-    private double[] vector;
+    protected double[] vector;
 
     public LinearVector(double[] values) {
         vector = new double[values.length];
-
-        for(int i = 0; i < vector.length; i ++) {
-            this.vector[i] = values[i];
+        System.arraycopy(values, 0, vector, 0, vector.length);
         }
-    }
 
     public int length() { return vector.length; }
 
-    public double[] getVector() { return vector; }
+    public double[] getVector() { return vector.clone(); }
 
     public boolean isZeroVector() {
         for(double val: vector) {
@@ -44,6 +41,11 @@ public class LinearVector {
         return vector[i];
     }
 
+    public void set(int i, double val) throws IndexOutOfBounds {
+        if ((i >= vector.length) || (i < 0)) throw new IndexOutOfBounds("Invalid index");
+        this.vector[i] = val;
+    }
+
     public void multiply(double c) {
         for(int i = 0; i < vector.length; i ++) {
             vector[i] = vector[i] * c;
@@ -58,10 +60,25 @@ public class LinearVector {
         return new LinearVector(thisVector);
     }
 
+    public boolean isLinearDependenantWith(LinearVector other) throws IllegalOperation {
+        if (other.length() != this.length()) throw new IllegalOperation("Cant preform operations on vectors with different dimensions");
+        double linearRelation;
+        if (other.vector[0] == 0) linearRelation = 0;
+        else linearRelation = this.vector[0] / other.vector[0];
+        for(int i = 1; i < this.vector.length; i++) {
+            if (other.vector[i] != 0 && this.vector[i] / other.vector[i] != linearRelation) return false;
+        }
+        return true;
+    }
+
+    public LinearColumn toColumn() { return new LinearColumn(this.vector); }
+
+    public LinearRow toRow() { return new LinearRow(this.vector);}
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for(double v: vector) { builder.append(v).append("\n"); }
+        for(double v: vector) { builder.append("|").append(v).append("|").append("\n"); }
         return builder.toString().substring(0, builder.length() - 1);
     }
 
