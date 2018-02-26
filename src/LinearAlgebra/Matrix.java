@@ -22,6 +22,7 @@ public class Matrix {
             }
             i++;
         }
+
         for (int m = 0; m < rows.length; m++) {
             this.rows[m] = new LinearRow(toBeRows[m]);
         }
@@ -40,6 +41,7 @@ public class Matrix {
         }
         for (int n = 0; n < columns.length; n++) {
             this.columns[n] = new LinearColumn(toBeColumns[n]);
+
         }
 
         fillMatrix();
