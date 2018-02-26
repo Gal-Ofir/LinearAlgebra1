@@ -15,8 +15,15 @@ public class Main {
             LinearRow row3 = new LinearRow(vec2);
             LinearRow row4 = new LinearRow(vec3);
             Matrix m = new Matrix(row1, row2, row3, row4);
-            System.out.println(m + "\nThe determinant is:");
-            System.out.println(m.getDet());
+
+            //example usage:
+            System.out.println(m); // String representation of matrix
+            System.out.println(m.getIndexOf(2, 2)); // 3
+            System.out.println(m.transpose()); // transposed matrix
+            System.out.println(m.getDet()); // calcs det of matrix
+            m.selfTranspose(); // transpose the matrix without returning a new Matrix object)
+            System.out.println(m);
+            System.out.println(m.getDet()); // should be the same value as before transpose
         }
         catch (Exception i) { System.out.println(i.getMessage());
         }

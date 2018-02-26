@@ -41,6 +41,11 @@ public class LinearVector {
         return vector[i];
     }
 
+    public void set(int i, double val) throws IndexOutOfBounds {
+        if ((i >= vector.length) || (i < 0)) throw new IndexOutOfBounds("Invalid index");
+        this.vector[i] = val;
+    }
+
     public void multiply(double c) {
         for(int i = 0; i < vector.length; i ++) {
             vector[i] = vector[i] * c;
@@ -53,6 +58,17 @@ public class LinearVector {
             thisVector[i] = vector[i] * c;
         }
         return new LinearVector(thisVector);
+    }
+
+    public boolean isLinearDependenantWith(LinearVector other) throws IllegalOperation {
+        if (other.length() != this.length()) throw new IllegalOperation("Cant preform operations on vectors with different dimensions");
+        double linearRelation;
+        if (other.vector[0] == 0) linearRelation = 0;
+        else linearRelation = this.vector[0] / other.vector[0];
+        for(int i = 1; i < this.vector.length; i++) {
+            if (other.vector[i] != 0 && this.vector[i] / other.vector[i] != linearRelation) return false;
+        }
+        return true;
     }
 
     public LinearColumn toColumn() { return new LinearColumn(this.vector); }
