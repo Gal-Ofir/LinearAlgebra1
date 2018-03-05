@@ -10,6 +10,10 @@ public class LinearRow extends LinearVector {
         super(row);
     }
 
+    public LinearRow(int index) {
+        super(index);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -44,5 +48,11 @@ public class LinearRow extends LinearVector {
 
     public void RowScaling(double times) {
         multiply(times);
+    }
+
+    public void RowInterchange(LinearRow other) {
+        double[] temp = this.getVector();
+        this.vector = other.getVector();
+        other.vector = temp;
     }
 }

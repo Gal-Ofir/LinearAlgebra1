@@ -4,12 +4,17 @@ import LinearAlgebra.Exceptions.*;
 import java.util.Arrays;
 
 public class LinearVector {
+
     protected double[] vector;
 
     public LinearVector(double[] values) {
         vector = new double[values.length];
         System.arraycopy(values, 0, vector, 0, vector.length);
         }
+
+    public LinearVector(int index) {
+        vector = new double[index];
+    }
 
     public int length() { return vector.length; }
 
@@ -36,7 +41,7 @@ public class LinearVector {
         for(int i = 0; i < vector.length; i++) vector[i] += otherVector[i];
     }
 
-    public double getIndexOf(int i) throws IndexOutOfBounds {
+    public double get(int i) throws IndexOutOfBounds {
         if ((i >= vector.length) || (i < 0)) throw new IndexOutOfBounds("Invalid index");
         return vector[i];
     }
@@ -60,11 +65,10 @@ public class LinearVector {
         return new LinearVector(thisVector);
     }
 
-    public boolean isLinearDependenantWith(LinearVector other) throws IllegalOperation {
+    public boolean isLinearDependentWith(LinearVector other) throws IllegalOperation {
         if (other.length() != this.length()) throw new IllegalOperation("Cant preform operations on vectors with different dimensions");
-        double linearRelation;
-        if (other.vector[0] == 0) linearRelation = 0;
-        else linearRelation = this.vector[0] / other.vector[0];
+        double linearRelation = (other.vector[0] == 0) ? 0
+                : this.vector[0] / other.vector[0];
         for(int i = 1; i < this.vector.length; i++) {
             if (other.vector[i] != 0 && this.vector[i] / other.vector[i] != linearRelation) return false;
         }
