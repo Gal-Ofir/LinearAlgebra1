@@ -138,9 +138,7 @@ public class Matrix {
 
     public void RowInterchange(int t, int d) throws IndexOutOfBounds {
         if (t >= M || d >= M || d < 0 || t < 0) throw new IndexOutOfBounds("Invalid index given");
-        LinearRow temp = new LinearRow(this.rows[t].getVector());
-        this.rows[t] = new LinearRow(this.rows[d].getVector());
-        this.rows[d] = temp;
+        this.rows[t].RowInterchange(this.rows[d]);
         int i = 0;
         for(LinearColumn column: this.columns) {
             column.set(t, this.rows[t].get(i));

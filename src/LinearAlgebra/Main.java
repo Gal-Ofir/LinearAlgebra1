@@ -34,13 +34,14 @@ public class Main {
 
             for(double[] row : m.getMatrixAsArray()) { // returns the matrix as a 2D array object
                 System.out.println(Arrays.toString(row));
-            } */
+            }
 
-         m.RowInterchange(0, 1);
+            m.RowInterchange(0, 1); // switches the first and second row in the matrix
+            m.RowReplacement(0, 1, 2, LinearRow.MINUS); // subtracts the value of (row1 * 2) from row0
+            m.RowScaling(0, 3); // scales row 0 by 3
 
-         System.out.println(m);
+            */
 
-         for(LinearColumn c: m.getColumns()) { System.out.println(c +"\n"); }
 
         }
         catch (Exception e) {
