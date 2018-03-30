@@ -34,7 +34,6 @@ public class LinearRow extends LinearVector {
         }
     }
 
-
     public void RowReplacement(LinearRow other, String operator) throws IllegalOperation {
         if (!operator.equals(PLUS) && (!operator.equals(MINUS))) throw new IllegalOperation("Invalid row operation");
         LinearRow temp = new LinearRow(other.getVector());

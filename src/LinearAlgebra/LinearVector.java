@@ -35,10 +35,11 @@ public class LinearVector {
         return new LinearVector(thisVector);
     }
 
-    public void add(LinearVector other) throws IllegalOperation {
+    public LinearVector add(LinearVector other) throws IllegalOperation {
         if (other.length() != this.length()) throw new IllegalOperation("Cant preform operations on vectors with different dimensions");
         double[] otherVector = other.getVector();
         for(int i = 0; i < vector.length; i++) vector[i] += otherVector[i];
+        return this;
     }
 
     public double get(int i) throws IndexOutOfBounds {
@@ -52,17 +53,15 @@ public class LinearVector {
     }
 
     public void multiply(double c) {
-        for(int i = 0; i < vector.length; i ++) {
-            vector[i] = vector[i] * c;
+        for(int i = 0; i < vector.length; i++) {
+            vector[i] *=  c;
         }
     }
 
     public LinearVector multiplyAndCreate(double c) {
-        double[] thisVector = this.vector;
-        for(int i = 0; i < vector.length; i ++) {
-            thisVector[i] = vector[i] * c;
-        }
-        return new LinearVector(thisVector);
+        LinearVector vector = new LinearVector(this.vector.clone());
+        vector.multiply(c);
+        return vector;
     }
 
     public boolean isLinearDependentWith(LinearVector other) throws IllegalOperation {
